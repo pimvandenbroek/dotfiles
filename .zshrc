@@ -1,3 +1,8 @@
+#load shell dotfiles
+for file in ~/.{path,bash_prompt,exports,aliases,functions,extra}; do
+	[ -r "$file" ] && [ -f "$file" ] && source "$file";
+done;
+
 HISTFILE=~/.histfile
 HISTSIZE=1000
 SAVEHIST=1000
@@ -42,7 +47,3 @@ if ! ss -a | grep -q "$SSH_AUTH_SOCK"; then
   fi
   unset wsl2_ssh_pageant_bin
 fi
-
-#aliasseseses
-alias ls='ls --color=auto'
-alias ll='ls -las'
