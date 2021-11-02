@@ -19,5 +19,10 @@ git clone https://github.com/zsh-users/zsh-autosuggestions ~/.zsh/zsh-autosugges
 #back to home
 cd
 
+#wsl2-ssh-pageant
+destination="$HOME/.ssh/wsl2-ssh-pageant.exe"
+wget -O "$destination" "https://github.com/BlackReloaded/wsl2-ssh-pageant/releases/latest/download/wsl2-s># Set the executable bit.
+chmod +x "$destination"
+
 #reload shell
 exec ${SHELL} -l
