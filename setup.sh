@@ -12,8 +12,10 @@ rootperm(){
 	    exit 1
     fi
     if [ $SUDO_USER ]; then
+        real_user=$SUDO_USER
         export real_path=$(sudo -i -u $SUDO_USER echo \$HOME)
     else
+        real_user=$(whoami)
         export real_path=$HOME
     fi
 }
@@ -30,10 +32,9 @@ spaceship() {
     echo "Installing spaceship-prompt"|date +"[%Y-%m-%d %H:%M:%S]"
     git clone https://github.com/spaceship-prompt/spaceship-prompt.git --depth=1
     mkdir .zfunctions
-    cd spaceship-prompt
+    cd $real_path/spaceship-prompt
     ln -sf "$PWD/spaceship.zsh" "/usr/local/share/zsh/site-functions/prompt_spaceship_setup"
     fpath=( "${ZDOTDIR:-$real_path}/.zfunctions" $fpath )
-    cd spaceship-prompt
     ln -sf "$PWD/spaceship.zsh" "${ZDOTDIR:-$real_path}/.zfunctions/prompt_spaceship_setup"
 }
 
@@ -78,5 +79,5 @@ cd
 exit
 
 #reload shell
-chsh -s $(which zsh)
+sudo -i -u $real_user chsh -s $(which zsh)
 exec ${SHELL} -l
