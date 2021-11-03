@@ -77,7 +77,6 @@ install jq
 
 #back to home
 cd
-exit
 
 #reload shell
 chsh -s $(which zsh)
