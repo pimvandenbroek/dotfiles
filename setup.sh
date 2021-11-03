@@ -2,12 +2,13 @@
 
 echo 'Setup for wsl or not (y/n):'
 read wsl
-date +"[%Y-%m-%d %H:%M:%S] Updating packages"
+
+log "Updating packages"
 apt update -y > /dev/null 2>&1;
 
 #Check root privilege.
 rootperm(){
-    date +"[%Y-%m-%d %H:%M:%S] Checking root"
+    log "Checking root"
     if [ "$(id -u)" -ne 0 ]; then
         error "You must be root"
 	    exit 1
@@ -21,16 +22,21 @@ rootperm(){
     fi
 }
 
+#log function
+log(){
+    date +"[%Y-%m-%d %H:%M:%S] ${1}"
+}
+
 #zsh
 zsh() {
-    date +"[%Y-%m-%d %H:%M:%S] Installing zsh"
+    log "Installing zsh"
     #zsh
     apt install zsh -y > /dev/null 2>&1;
 }
 
 #spaceship
 spaceship() {
-    date +"[%Y-%m-%d %H:%M:%S] Installing spaceship-prompt"
+    log "Installing spaceship-prompt"
     git clone https://github.com/spaceship-prompt/spaceship-prompt.git --depth=1 > /dev/null 2>&1;
     mkdir .zfunctions
     cd $real_path/spaceship-prompt
@@ -41,7 +47,7 @@ spaceship() {
 
 #zsh-autosuggestions
 autosuggestions(){
-    date +"[%Y-%m-%d %H:%M:%S] Installing autosuggestions"
+    log "Installing autosuggestions"
     git clone https://github.com/zsh-users/zsh-autosuggestions $real_path/.zsh/zsh-autosuggestions > /dev/null 2>&1;
 }
 
@@ -58,7 +64,7 @@ wsl-ssh(){
 install() {
     which $1 &> /dev/null
     if [ $? -ne 0 ]; then
-        date +"[%Y-%m-%d %H:%M:%S] Installing ${1}"
+        log "Installing ${1}"
         apt install -y $1 > /dev/null 2>&1;
     else
         echo "Already installed: ${1}"
