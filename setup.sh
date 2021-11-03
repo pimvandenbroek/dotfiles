@@ -3,9 +3,6 @@
 echo 'Setup for wsl or not (y/n):'
 read wsl
 
-log "Updating packages"
-apt update -y > /dev/null 2>&1;
-
 #Check root privilege.
 rootperm(){
     log "Checking root"
@@ -22,6 +19,16 @@ rootperm(){
     fi
 }
 
+updatepackages(){
+    log "Updating packages"
+    apt update -y > /dev/null 2>&1;
+}
+
+movefiles(){
+    sudo -i -u $real_user cp -r $real_path/dotfiles/. $real_path/.
+    rm -rf .git
+}
+
 #log function
 log(){
     date +"[%Y-%m-%d %H:%M:%S] ${1}"
@@ -30,7 +37,6 @@ log(){
 #zsh
 zsh() {
     log "Installing zsh"
-    #zsh
     apt install zsh -y > /dev/null 2>&1;
 }
 
@@ -38,7 +44,7 @@ zsh() {
 spaceship() {
     log "Installing spaceship-prompt"
     git clone https://github.com/spaceship-prompt/spaceship-prompt.git --depth=1 > /dev/null 2>&1;
-    mkdir .zfunctions
+    mkdir .zfunctions > /dev/null 2>&1;
     cd $real_path/spaceship-prompt
     ln -sf "$PWD/spaceship.zsh" "/usr/local/share/zsh/site-functions/prompt_spaceship_setup" > /dev/null 2>&1;
     fpath=( "${ZDOTDIR:-$real_path}/.zfunctions" $fpath ) > /dev/null 2>&1;
@@ -72,7 +78,9 @@ install() {
 }
 
 #install everything
+updatepackages
 rootperm
+movefiles
 zsh
 spaceship
 autosuggestions
