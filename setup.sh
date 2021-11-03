@@ -3,9 +3,6 @@
 echo 'Setup for wsl or not (y/n):'
 read wsl
 
-log "Updating packages"
-apt update -y > /dev/null 2>&1;
-
 #Check root privilege.
 rootperm(){
     log "Checking root"
@@ -61,11 +58,15 @@ autosuggestions(){
 }
 
 wsl-ssh(){
+    install socat
+    install iproute2
+    log "Installing wsl-ssh"
     #wsl2-ssh-pageant
     sudo -i -u $real_user mkdir -p $real_path/.ssh/
     destination="$real_path/.ssh/wsl2-ssh-pageant.exe"
     wget -O "$destination" "https://github.com/BlackReloaded/wsl2-ssh-pageant/releases/latest/download/wsl2-ssh-pageant.exe" > /dev/null 2>&1;
     # Set the executable bit.
+    chown $real_user:$real_user "$destination"
     chmod +x "$destination"   
 }
 
