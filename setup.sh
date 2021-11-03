@@ -3,6 +3,9 @@
 echo 'Setup for wsl or not (y/n):'
 read wsl
 
+log "Updating packages"
+apt update -y > /dev/null 2>&1;
+
 #Check root privilege.
 rootperm(){
     log "Checking root"
@@ -44,7 +47,7 @@ zsh() {
 spaceship() {
     log "Installing spaceship-prompt"
     git clone https://github.com/spaceship-prompt/spaceship-prompt.git --depth=1 > /dev/null 2>&1;
-    mkdir .zfunctions > /dev/null 2>&1;
+    sudo -i -u $real_user mkdir .zfunctions
     cd $real_path/spaceship-prompt
     ln -sf "$PWD/spaceship.zsh" "/usr/local/share/zsh/site-functions/prompt_spaceship_setup" > /dev/null 2>&1;
     fpath=( "${ZDOTDIR:-$real_path}/.zfunctions" $fpath ) > /dev/null 2>&1;
@@ -59,7 +62,7 @@ autosuggestions(){
 
 wsl-ssh(){
     #wsl2-ssh-pageant
-    mkdir -p $real_path/.ssh/
+    sudo -i -u $real_user mkdir -p $real_path/.ssh/
     destination="$real_path/.ssh/wsl2-ssh-pageant.exe"
     wget -O "$destination" "https://github.com/BlackReloaded/wsl2-ssh-pageant/releases/latest/download/wsl2-ssh-pageant.exe" > /dev/null 2>&1;
     # Set the executable bit.
