@@ -2,8 +2,7 @@
 
 echo 'Setup for wsl or not (y/n):'
 read wsl
-
-sudo apt update -y > /dev/null 2>&1;
+apt update -y > /dev/null 2>&1;
 
 #Check root privilege.
 rootperm(){
@@ -11,7 +10,12 @@ rootperm(){
     if [ "$(id -u)" -ne 0 ]; then
         error "You must be root"
 	    exit 1
-    fi    
+    fi
+    if [ $SUDO_USER ]; then
+        export real_path=$(sudo -i -u $SUDO_USER echo \$HOME)
+    else
+        export real_path=$HOME
+    fi
 }
 
 #zsh
@@ -28,20 +32,21 @@ spaceship() {
     mkdir .zfunctions
     cd spaceship-prompt
     ln -sf "$PWD/spaceship.zsh" "/usr/local/share/zsh/site-functions/prompt_spaceship_setup"
-    fpath=( "${ZDOTDIR:-$HOME}/.zfunctions" $fpath )
+    fpath=( "${ZDOTDIR:-$real_path}/.zfunctions" $fpath )
     cd spaceship-prompt
-    ln -sf "$PWD/spaceship.zsh" "${ZDOTDIR:-$HOME}/.zfunctions/prompt_spaceship_setup"
+    ln -sf "$PWD/spaceship.zsh" "${ZDOTDIR:-$real_path}/.zfunctions/prompt_spaceship_setup"
 }
 
 #zsh-autosuggestions
 autosuggestions(){
     echo "Installing autosuggestions"|date +"[%Y-%m-%d %H:%M:%S]"   
-    git clone https://github.com/zsh-users/zsh-autosuggestions ~/.zsh/zsh-autosuggestions
+    git clone https://github.com/zsh-users/zsh-autosuggestions $real_path/.zsh/zsh-autosuggestions
 }
 
 wsl-ssh(){
     #wsl2-ssh-pageant
-    destination="$HOME/.ssh/wsl2-ssh-pageant.exe"
+    mkdir -p $real_path/.ssh/
+    destination="$real_path/.ssh/wsl2-ssh-pageant.exe"
     wget -O "$destination" "https://github.com/BlackReloaded/wsl2-ssh-pageant/releases/latest/download/wsl2-ssh-pageant.exe"
     # Set the executable bit.
     chmod +x "$destination"   
@@ -51,10 +56,10 @@ wsl-ssh(){
 install() {
     which $1 &> /dev/null
     if [ $? -ne 0 ]; then
-        echo "Installing: ${1}..."|date +"[%Y-%m-%d %H:%M:%S]"   
+        echo "Installing: ${1}..." 
         apt install -y $1
     else
-        echo "Already installed: ${1}"|date +"[%Y-%m-%d %H:%M:%S]"   
+        echo "Already installed: ${1}"
     fi
 }
 
@@ -70,6 +75,7 @@ install jq
 
 #back to home
 cd
+exit
 
 #reload shell
 chsh -s $(which zsh)
