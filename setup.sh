@@ -90,6 +90,7 @@ spaceship
 autosuggestions
 if [ $wsl = 'y' ]; then wsl-ssh; fi
 
+install nano
 install python3-pip
 install jq
 
