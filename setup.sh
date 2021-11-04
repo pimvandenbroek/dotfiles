@@ -98,5 +98,5 @@ install jq
 cd
 
 #reload shell
-chsh -s $(which zsh)
+chsh -s /usr/bin/zsh
 exit
