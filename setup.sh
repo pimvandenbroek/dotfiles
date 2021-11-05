@@ -1,7 +1,6 @@
 #!/bin/bash
 
-echo 'Setup for wsl or not (y/n):'
-read wsl
+read -p "Setup for wsl or not [y/n]: " wsl
 
 #Check root privilege.
 rootperm(){
