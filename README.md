@@ -13,6 +13,7 @@ $ chmod +x dotfiles/setup.sh
 
 # Install script
 $ sudo ./dotfiles/setup.sh
+# If you are running on WSL2, and want to use existing sshkeys running in pageant, choose yes
 
 # In some cases the shell isn't changed afterwards
 $ chsh -s /usr/bin/zsh
