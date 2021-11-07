@@ -1,3 +1,4 @@
+#Fixed Docker installation for WSL, as docker's own manual doesn't work on WSL.
 sudo apt remove docker docker-engine docker.io containerd runc
 sudo apt install apt-transport-https  ca-certificates  curl gnupg-agent software-properties-common iptables
 sudo update-alternatives --set iptables /usr/sbin/iptables-legacy
@@ -12,6 +13,6 @@ sudo apt install docker-ce docker-ce-cli containerd.io
 sudo service docker start
 sudo docker ps -a
 
-#optional
+#optional, so you won't have to use docker as sudo
 sudo groupadd docker
 sudo usermod -aG docker $USER
