@@ -11,3 +11,7 @@ sudo apt update
 sudo apt install docker-ce docker-ce-cli containerd.io
 sudo service docker start
 sudo docker ps -a
+
+#optional
+sudo groupadd docker
+sudo usermod -aG docker $USER
