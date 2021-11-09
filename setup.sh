@@ -92,6 +92,7 @@ if [ $wsl = 'y' ]; then wsl-ssh; fi
 install nano
 install python3-pip
 install jq
+install tmux
 
 #back to home
 cd
