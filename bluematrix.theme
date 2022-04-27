@@ -1,0 +1,9 @@
+[Scheme]
+Name=BlueMatrix
+ColorCursor=#76FF9F
+ColorForeground=#00A2FF
+ColorBackground=#101116
+TabActivityColor=#88C0D0
+ColorPalette=#101116;#FF5680;#00FF9C;#FFFC58;#00B0FF;#D57BFF;#76C1FF;#E5E9F0;#686868;#FF6E67;#5FFA68;#FFFC67;#6871FF;#D682EC;#60FDFF;#ECEFF4
+ColorBold=#D8DEE9
+ColorBoldUseDefault=FALSE
