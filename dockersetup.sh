@@ -9,7 +9,7 @@ sudo add-apt-repository    "deb [arch=amd64] https://download.docker.com/linux/d
    $(lsb_release -cs) \
    stable"
 sudo apt update
-sudo apt install docker-ce docker-ce-cli containerd.io
+sudo apt install docker-ce docker-ce-cli containerd.io docker-compose-plugin
 sudo service docker start
 sudo docker ps -a
 
