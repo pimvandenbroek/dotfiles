@@ -1,7 +1,5 @@
 #!/bin/bash
 
-read -p "Setup for wsl or not [y/n]: " wsl
-
 #Check root privilege.
 rootperm(){
     log "Checking root"
@@ -39,34 +37,16 @@ zsh() {
     apt install zsh -y > /dev/null 2>&1;
 }
 
-#spaceship
-spaceship() {
-    log "Installing spaceship-prompt"
-    git clone https://github.com/spaceship-prompt/spaceship-prompt.git --depth=1 > /dev/null 2>&1;
-    sudo -i -u $real_user mkdir .zfunctions
-    cd $real_path/spaceship-prompt
-    ln -sf "$PWD/spaceship.zsh" "/usr/local/share/zsh/site-functions/prompt_spaceship_setup" > /dev/null 2>&1;
-    fpath=( "${ZDOTDIR:-$real_path}/.zfunctions" $fpath ) > /dev/null 2>&1;
-    ln -sf "$PWD/spaceship.zsh" "${ZDOTDIR:-$real_path}/.zfunctions/prompt_spaceship_setup" > /dev/null 2>&1;
-}
-
 #zsh-autosuggestions
 autosuggestions(){
     log "Installing autosuggestions"
     git clone https://github.com/zsh-users/zsh-autosuggestions $real_path/.zsh/zsh-autosuggestions > /dev/null 2>&1;
 }
 
-wsl-ssh(){
-    install socat
-    install iproute2
-    log "Installing wsl-ssh"
-    #wsl2-ssh-pageant
-    sudo -i -u $real_user mkdir -p $real_path/.ssh/
-    destination="$real_path/.ssh/wsl2-ssh-pageant.exe"
-    wget -O "$destination" "https://github.com/BlackReloaded/wsl2-ssh-pageant/releases/latest/download/wsl2-ssh-pageant.exe" > /dev/null 2>&1;
-    # Set the executable bit.
-    chown $real_user:$real_user "$destination"
-    chmod +x "$destination"   
+#starship
+starship() {
+    curl -sS https://starship.rs/install.sh | sh
+    mv .starship.toml ~/.config/starship.toml
 }
 
 #install default stuff
@@ -87,12 +67,12 @@ movefiles
 zsh
 spaceship
 autosuggestions
-if [ $wsl = 'y' ]; then wsl-ssh; fi
 
 install nano
 install python3-pip
 install jq
 install tmux
+install eza
 
 #back to home
 cd
