@@ -2,6 +2,10 @@ alias ll='ls -la --color=auto'
 alias ls='eza --icons'
 alias lh='eza -lah'
 
+alias grep='grep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias egrep='egrep --color=auto'
+
 alias pystart='~/bin/pystart.sh'
 
 alias tf=terraform
