@@ -1,0 +1,14 @@
+alias ll='ls -la --color=auto'
+alias ls='eza --icons'
+alias lh='eza -lah'
+
+alias pystart='~/bin/pystart.sh'
+
+alias tf=terraform
+
+alias k=kubectl
+alias kg='kubectl get'
+alias kevents="kubectl get events -A --sort-by='.lastTimestamp'"
+alias watchevents="kubectl get events -o custom-columns=FirstSeen:.firstTimestamp,LastSeen:.lastTimestamp,Count:.count,Type:.type,Reason:.reason,Message:.message -A -w"
+alias kw="watch -n1 kubectl get pods"
+alias kwo="watch -n1 kubectl get pods -o wide"
