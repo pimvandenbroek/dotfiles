@@ -45,6 +45,7 @@ autosuggestions(){
 
 #starship
 starship() {
+    log "Installing starship"
     curl -sS https://starship.rs/install.sh | sh
     mv .starship.toml ~/.config/starship.toml
 }
