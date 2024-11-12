@@ -23,10 +23,7 @@ echo '.venv' > .gitignore
 # Create an empty requirements.txt file
 touch requirements.txt
 
-# Activate the virtual environment
-source .venv/bin/activate
-
 # Print a success message
 echo "Basic Python project setup completed in '$PROJECT_NAME'!"
-echo "Virtual environment activated."
+echo "Activate the venv by running 'source .venv/bin/activate'"
 echo "To deactivate, run: deactivate"
