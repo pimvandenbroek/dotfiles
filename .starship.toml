@@ -1,0 +1,78 @@
+# Get editor completions based on the config schema
+"$schema" = 'https://starship.rs/config-schema.json'
+format = """
+$time\
+$hostname\
+$directory\
+$git_branch\
+$kubernetes\
+$gcloud\
+$git_metrics\
+$git_status\
+$python\
+$character"""
+
+# Inserts a blank line between shell prompts
+add_newline = true
+
+[time]
+disabled = false
+format = '[$time](#22DA6E) '
+
+# Replace the '❯' symbol in the prompt with '➜'
+[character] # The name of the module we are configuring is 'character'
+success_symbol = '[➜](bold green) ' # The 'success_symbol' segment is being set to '➜' with the color 'bold green'
+error_symbol = '[➜](bold red) '
+
+# Disable the package module, hiding it from the prompt completely
+[package]
+disabled = true
+
+[kubernetes]
+format = 'on \[[󱃾 $context \($namespace\)]($style)\] '
+disabled = false
+
+[gcloud]
+disabled = false
+symbol = '️ '
+format = '\[[$symbol$active]($style)\] '
+style = 'bold yellow'
+
+[line_break]
+disabled = true
+
+[username]
+style_root = 'black bold'
+format = 'with [$user]($style) '
+disabled = false
+show_always = true
+
+[hostname]
+disabled = false
+format = 'on  [$ssh_symbol$hostname]($style) '
+style = '#22DA6E'
+
+[directory]
+format = 'in [$path]($style)[$read_only]($read_only_style) '
+
+[git_metrics]
+disabled = false
+format = '[+$added]($added_style)/[-$deleted]($deleted_style) '
+only_nonzero_diffs = false
+
+[git_status]
+disabled = false
+format = '([\[$all_status$ahead_behind\]]($style) )'
+
+[git_branch]
+disabled = false
+format = 'on [$symbol$branch(:$remote_branch)]($style) '
+
+[python]
+symbol = ''
+python_binary = 'python3'
+pyenv_version_name = false
+version_format = ''
+detect_files = ['.py']
+style = 'red bold'
+format = '[(\($virtualenv\) )]($style)'
