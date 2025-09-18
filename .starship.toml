@@ -17,7 +17,7 @@ add_newline = true
 
 [time]
 disabled = false
-format = '[$time](#22DA6E) '
+format = '[$time](green) '
 
 # Replace the '❯' symbol in the prompt with '➜'
 [character] # The name of the module we are configuring is 'character'
@@ -29,12 +29,12 @@ error_symbol = '[➜](bold red) '
 disabled = true
 
 [kubernetes]
-format = 'on \[[󱃾 $context \($namespace\)]($style)\] '
+format = 'on \[[󰠳 $context \($namespace\)]($style)\] '
 disabled = false
 
 [gcloud]
 disabled = false
-symbol = '️ '
+symbol = '󰊭 '
 format = '\[[$symbol$active]($style)\] '
 style = 'bold yellow'
 
@@ -49,8 +49,8 @@ show_always = true
 
 [hostname]
 disabled = false
-format = 'on  [$ssh_symbol$hostname]($style) '
-style = '#22DA6E'
+format = 'on 󰒋 [$ssh_symbol$hostname]($style) '
+style = 'green'
 
 [directory]
 format = 'in [$path]($style)[$read_only]($read_only_style) '
